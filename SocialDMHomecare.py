@@ -131,6 +131,12 @@ def medication_scenario_intent_detect(response, social_context, name, intent):
     if intent == "check_information_sleep":
         response.query_result.fulfillment_text = "간밤에 잘 주무셨어요?"
 
+    elif intent == "transmit_information_reaction":
+        if not response.query_result.parameters.fields['no'].string_value and not response.query_result.parameters.fields['negative'].string_value:
+            response.query_result.fulfillment_text = "푹 주무셨다니 다행이에요."
+        else:
+            response.query_result.fulfillment_text = "잘 못 주무셨다니 속상해요."
+
     elif intent == "check_information_disease":
         disease = social_context['disease_name']
         response.query_result.fulfillment_text = disease+"은 좀 어떠세요?"
@@ -146,10 +152,10 @@ def medication_scenario_intent_detect(response, social_context, name, intent):
     elif intent == "transmit_information_disease_advise":
         disease = social_context['disease_name']
         advice = social_context['disease_advice']
-        if not response.query_result.parameters.fields['meal'].string_value:
-            response.query_result.fulfillment_text = "그러시면 안 돼요. " +disease+"에는 "+advice+" 중요한 거 아시죠?"
-        else:
+        if response.query_result.parameters.fields['meal'].string_value:
             response.query_result.fulfillment_text = "잘 하셨어요. "+disease+"에는 "+advice+" 중요한 거 아시죠?"
+        else:
+            response.query_result.fulfillment_text = disease+"에는 "+advice+" 중요한 거 아시죠?"
 
     elif intent == "check_information_health":
         task = social_context['task']
