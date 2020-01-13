@@ -231,7 +231,7 @@ def ros_callback(msg):
             task_completion_pub.publish(json.dumps(final_output, ensure_ascii=False, indent=4))
 
             print_for_check(" Output", final_output)
-#            print('robot_dialog : ', robot_dialog)
+            print("="*120)
 
 
 def run_subscriber():
