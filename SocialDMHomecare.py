@@ -232,7 +232,7 @@ def ros_callback(msg):
             medication_scenario_intent_detect(response, social_context, name, intent)
             hospital_schedule_detect_intent(response, social_context, name, intent)
 
-            robot_dialog = response.query_result.fulfillment_text
+            robot_dialog = response.query_result.fulfillment_text.encode("utf-8")
             final_output = make_response_json(id, robot_dialog)
 
             task_completion_pub = rospy.Publisher('/taskCompletion', String, queue_size=10)
